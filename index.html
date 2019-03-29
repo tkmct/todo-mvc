@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/src/css//style.css" />
+    <link rel="stylesheet" href="/client/css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
     <title>TODO Manager</title>
@@ -14,7 +14,7 @@
     <main>
       <div class="hero">TODO-Manager</div>
       <div class="todo-form__wrapper">
-        <form method="POST" action="/" class="todo-form">
+        <form method="#" action="#" class="todo-form">
           <label for="name" class="todo-form__label">TODO</label>
           <div class="todo-form-input__wrapper">
             <input id="name" name="name" type="text" class="todo-form__input" />
@@ -26,30 +26,52 @@
         <ul class="todos">
           <li class="todo-item">
             <label class="todo-toggle__container">
-              <input type="checkbox" class="todo-toggle">
+              <input
+                data-todo-id="1"
+                type="checkbox"
+                class="todo-toggle"
+                value="checked"
+              />
               <span class="todo-toggle__checkmark"></span>
             </label>
-            <div class="todo-name">TODO name</div>
-            <div class="todo-remove-button">x</div>
+            <div class="todo-name">sample1</div>
+            <div data-todo-id="1" class="todo-remove-button">x</div>
           </li>
           <li class="todo-item">
             <label class="todo-toggle__container">
-              <input type="checkbox" class="todo-toggle">
+              <input
+                data-todo-id="2"
+                type="checkbox"
+                class="todo-toggle"
+                value="checked"
+              />
               <span class="todo-toggle__checkmark"></span>
             </label>
-            <div class="todo-name">TODO name</div>
-            <div class="todo-remove-button">x</div>
+            <div class="todo-name">sample2</div>
+            <div data-todo-id="2" class="todo-remove-button">x</div>
+          </li>
+          <li class="todo-item">
+            <label class="todo-toggle__container">
+              <input
+                data-todo-id="3"
+                type="checkbox"
+                class="todo-toggle"
+                value="checked"
+              />
+              <span class="todo-toggle__checkmark"></span>
+            </label>
+            <div class="todo-name">sample3</div>
+            <div data-todo-id="3" class="todo-remove-button">x</div>
           </li>
         </ul>
       </div>
       <div class="todo-footer">
         <div class="done-items-num">
-          0 items done
+          <span class="done-items-num__value">0</span><span> items done</span>
         </div>
       </div>
     </main>
     <footer class="application-footer">
     </footer>
-    <script src="./src/js/index.js"></script>
   </body>
 </html>

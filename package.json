@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel start ./index.html"
+    "start": "agreed-server --path ./spec/entry.js --port 3000 --static ./"
   },
   "repository": {
     "type": "git",
@@ -18,7 +17,11 @@
   },
   "homepage": "https://github.com/MaxMEllon/todo-mvc#readme",
   "dependencies": {
-    "parcel-bundler": "^1.12.3",
-    "utl": "0.0.1"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/polyfill": "^7.4.3",
+    "agreed": "^3.2.2"
   }
 }
