@@ -1,0 +1,24 @@
+{
+  "name": "todo-mvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel start ./index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxMEllon/todo-mvc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxMEllon/todo-mvc/issues"
+  },
+  "homepage": "https://github.com/MaxMEllon/todo-mvc#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.3",
+    "utl": "0.0.1"
+  }
+}
