@@ -19,6 +19,19 @@
   height: 60px;
   line-height: 60px;
   background: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  border-collapse: collapse;
+}
+
+.todo-item:last-child {
+  display: flex;
+  justify-content: flex-start;
+  width: 500px;
+  height: 60px;
+  line-height: 60px;
+  background: rgba(0, 0, 0, 0.03);
   border: 1px solid lightgray;
   border-collapse: collapse;
 }

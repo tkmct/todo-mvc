@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/src/css//style.css" />
+    <link rel="stylesheet" href="/client/css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
     <title>TODO Manager</title>
@@ -24,32 +24,16 @@
       </div>
       <div class="todos__wrapper">
         <ul class="todos">
-          <li class="todo-item">
-            <label class="todo-toggle__container">
-              <input type="checkbox" class="todo-toggle">
-              <span class="todo-toggle__checkmark"></span>
-            </label>
-            <div class="todo-name">TODO name</div>
-            <div class="todo-remove-button">x</div>
-          </li>
-          <li class="todo-item">
-            <label class="todo-toggle__container">
-              <input type="checkbox" class="todo-toggle">
-              <span class="todo-toggle__checkmark"></span>
-            </label>
-            <div class="todo-name">TODO name</div>
-            <div class="todo-remove-button">x</div>
-          </li>
         </ul>
       </div>
       <div class="todo-footer">
         <div class="done-items-num">
-          0 items done
+          <span class="done-items-num__value">0</span><span> items done</span>
         </div>
       </div>
     </main>
     <footer class="application-footer">
     </footer>
-    <script src="./src/js/index.js"></script>
+    <script type="module" src="./client/js/index.js"></script>
   </body>
 </html>
