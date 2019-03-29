@@ -1,0 +1,38 @@
+{
+  "request": {
+    "path": "/todos/",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "todos": [
+        {
+          "id": "{:todos.0.id}",
+          "name": "{:todos.0.name}",
+          "done": "{:todos.0.done}"
+        },
+        "{:todos.1-last}"
+      ]
+    },
+    "values": {
+      "todos": [
+        {
+          "id": 1,
+          "name": "buy milk",
+          "done": true
+        },
+        {
+          "id": 2,
+          "name": "buy beer",
+          "done": false
+        },
+        {
+          "id": 3,
+          "name": "buy peanuts",
+          "done": false
+        }
+      ]
+    }
+  }
+}
