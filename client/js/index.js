@@ -1,6 +1,34 @@
 const API_ROOT = 'http://localhost:3000'
 
 
+function h(tagName, attributes, children) {
+  const dom = document.createElement(tagName)
+  Object.keys(attributes).forEach(k => {
+    if (k === 'onClick') {
+      dom.addEventListener('click', attributes[k])
+    } else if (k === 'onChange') {
+      dom.addEventListener('change', attributes[k])
+    } else {
+      dom.setAttribute(k, attributes[k])
+    }
+  })
+
+  if (children instanceof Array) {
+    children.forEach(child => {
+      dom.appendChild(child)
+    })
+  } else if (children) {
+    dom.appendChild(children)
+  }
+
+  return dom
+}
+
+function t(str) {
+  return document.createTextNode(str)
+}
+
+
 // TODO FORM
 class FormView {
   constructor(root, onSubmit) {
@@ -9,33 +37,27 @@ class FormView {
   }
 
   createDOM() {
-    const form = document.createElement('form')
-    form.setAttribute('class', 'todo-form')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', 'name')
-    label.setAttribute('class', 'todo-form__label')
-    label.innerHTML = 'TODO'
-    form.appendChild(label)
-
-    const inputWrapper = document.createElement('div')
-    inputWrapper.setAttribute('class', 'todo-form-input__wrapper')
-
-    const inputName = document.createElement('input')
-    inputName.setAttribute('id', 'name')
-    inputName.setAttribute('class', 'todo-form__input')
-    inputName.setAttribute('name', 'name')
-    inputName.setAttribute('type', 'text')
-    inputWrapper.appendChild(inputName)
-
-    const inputSubmit = document.createElement('input')
-    inputSubmit.setAttribute('class', 'todo-form__submit')
-    inputSubmit.setAttribute('type', 'submit')
-    inputSubmit.setAttribute('value', 'Submit')
-    inputWrapper.appendChild(inputSubmit)
-
-    form.appendChild(inputWrapper)
-    return form
+    return h('form', {
+      'class': 'todo-form'
+    },
+    [
+      h('label', { for: 'name', 'class': 'todo-form__label' }, t('TODO')),
+      h('div', {
+        'class': 'todo-form-input__wrapper'
+      },
+        [h('input', {
+          id: 'name',
+          'class': 'todo-form__input',
+          name: 'name',
+          type: 'text'
+        }),
+        h('input', {
+          'class': 'todo-form__submit',
+          type: 'submit',
+          value: 'Submit'
+        })
+      ])
+    ])
   }
 
   render() {
@@ -71,46 +93,28 @@ class TodoView {
   }
 
   createTodoItem(todo, { onUpdate, onDelete }) {
-    const li = document.createElement('li')
-    li.setAttribute('class', 'todo-item')
-
-    // create label
-    const label = document.createElement('label')
-    label.setAttribute('class', 'todo-toggle__container')
-
-    const input = document.createElement('input')
-    input.setAttribute('type', 'checkbox')
-    input.setAttribute('class', 'todo-toggle')
-    if (todo.done) {
-      input.setAttribute('checked', true)
+    const checkAttrs = {
+      type: 'checkbox',
+      'class': 'todo-toggle',
+      onChange: function(e) {
+        onUpdate({ ...todo, done: this.checked })
+      }
     }
-    input.addEventListener('change', (e) => {
-      onUpdate({ ...todo, done: input.checked })
-    })
-    label.appendChild(input)
+    if (todo.done) {
+      checkAttrs.checked = true
+    }
 
-    const checkmark = document.createElement('span')
-    checkmark.setAttribute('class', 'todo-toggle__checkmark')
-    label.appendChild(checkmark)
-
-    li.appendChild(label)
-
-    // create name
-    const name = document.createElement('div')
-    name.setAttribute('class', 'todo-name')
-    name.innerHTML = todo.name
-    li.appendChild(name)
-
-    // create remove button
-    const removeButton = document.createElement('div')
-    removeButton.setAttribute('class', 'todo-remove-button')
-    removeButton.innerHTML = 'x'
-    removeButton.addEventListener('click', (e) => {
-      onDelete(todo.id)
-    })
-    li.appendChild(removeButton)
-
-    return li
+    return h('li', { 'class': 'todo-item' }, [
+      h('label', { 'class': 'todo-toggle__container' }, [
+        h('input', checkAttrs),
+        h('span', { 'class': 'todo-toggle__checkmark' })
+      ]),
+      h('div', { 'class': 'todo-name' }, t(todo.name)),
+      h('div', {
+        'class': 'todo-remove-button',
+        onClick: (e) => { onDelete(todo.id )}
+      }, t('x'))
+    ])
   }
 
   createTodoList(todos) {
