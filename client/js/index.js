@@ -81,9 +81,11 @@ class TodoView {
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
     input.setAttribute('class', 'todo-toggle')
-    input.setAttribute('value', 'checked')
-    input.addEventListener('click', (e) => {
-      onUpdate(e.target.value)
+    if (todo.done) {
+      input.setAttribute('checked', true)
+    }
+    input.addEventListener('change', (e) => {
+      onUpdate({ ...todo, done: input.checked })
     })
     label.appendChild(input)
 
@@ -157,7 +159,7 @@ class TodoModel {
   }
 
   static updateTodo(todo) {
-    return fetch(`${API_ROOT}/todos`, {
+    return fetch(`${API_ROOT}/todos/${todo.id}`, {
       method: 'PUT',
       headers: { 
         "Content-Type": "application/json",
@@ -188,12 +190,11 @@ class TodoController {
     this.render()
   }
 
-  updateTodo = (value) => {
-    console.log('update', value)
+  updateTodo = async (todo) => {
+    await TodoModel.updateTodo(todo)
   }
 
   deleteTodo = async (value) => {
-    console.log('delete', value)
     await TodoModel.deleteTodo(value)
     const i = this.todos.findIndex((todo) => todo.id === value)
     this.todos.splice(i, 1)
