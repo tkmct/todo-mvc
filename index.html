@@ -13,58 +13,8 @@
     </header>
     <main>
       <div class="hero">TODO-Manager</div>
-      <div class="todo-form__wrapper">
-        <form method="#" action="#" class="todo-form">
-          <label for="name" class="todo-form__label">TODO</label>
-          <div class="todo-form-input__wrapper">
-            <input id="name" name="name" type="text" class="todo-form__input" />
-            <input type="submit" class="todo-form__submit" value="Submit"></input>
-          </div>
-        </form>
-      </div>
-      <div class="todos__wrapper">
-        <ul class="todos">
-          <li class="todo-item">
-            <label class="todo-toggle__container">
-              <input
-                data-todo-id="1"
-                type="checkbox"
-                class="todo-toggle"
-                value="checked"
-              />
-              <span class="todo-toggle__checkmark"></span>
-            </label>
-            <div class="todo-name">sample1</div>
-            <div data-todo-id="1" class="todo-remove-button">x</div>
-          </li>
-          <li class="todo-item">
-            <label class="todo-toggle__container">
-              <input
-                data-todo-id="2"
-                type="checkbox"
-                class="todo-toggle"
-                value="checked"
-              />
-              <span class="todo-toggle__checkmark"></span>
-            </label>
-            <div class="todo-name">sample2</div>
-            <div data-todo-id="2" class="todo-remove-button">x</div>
-          </li>
-          <li class="todo-item">
-            <label class="todo-toggle__container">
-              <input
-                data-todo-id="3"
-                type="checkbox"
-                class="todo-toggle"
-                value="checked"
-              />
-              <span class="todo-toggle__checkmark"></span>
-            </label>
-            <div class="todo-name">sample3</div>
-            <div data-todo-id="3" class="todo-remove-button">x</div>
-          </li>
-        </ul>
-      </div>
+      <div class="todo-form__wrapper" id="todo-form-root"></div>
+      <div class="todos__wrapper" id="todo-list-root"></div>
       <div class="todo-footer">
         <div class="done-items-num">
           <span class="done-items-num__value">0</span><span> items done</span>
@@ -73,5 +23,6 @@
     </main>
     <footer class="application-footer">
     </footer>
+    <script src="client/js/index.js"></script>
   </body>
 </html>
