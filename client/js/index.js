@@ -64,11 +64,13 @@ class FormController {
 
 // TODO LIST
 class TodoView {
-  constructor(root) {
+  constructor(root, onUpdate, onDelete) {
     this.root = root
+    this.onUpdate = onUpdate
+    this.onDelete = onDelete
   }
 
-  createTodoItem(todo) {
+  createTodoItem(todo, { onUpdate, onDelete }) {
     const li = document.createElement('li')
     li.setAttribute('class', 'todo-item')
 
@@ -80,6 +82,9 @@ class TodoView {
     input.setAttribute('type', 'checkbox')
     input.setAttribute('class', 'todo-toggle')
     input.setAttribute('value', 'checked')
+    input.addEventListener('click', (e) => {
+      onUpdate(e.target.value)
+    })
     label.appendChild(input)
 
     const checkmark = document.createElement('span')
@@ -98,9 +103,9 @@ class TodoView {
     const removeButton = document.createElement('div')
     removeButton.setAttribute('class', 'todo-remove-button')
     removeButton.innerHTML = 'x'
-
-
-    // TODO: addEventListener
+    removeButton.addEventListener('click', (e) => {
+      onDelete(todo.id)
+    })
     li.appendChild(removeButton)
 
     return li
@@ -109,7 +114,7 @@ class TodoView {
   createTodoList(todos) {
     const ul =  document.createElement('ul')
     ul.setAttribute('class', 'todos')
-    todos.forEach(todo => ul.appendChild(this.createTodoItem(todo)))
+    todos.forEach(todo => ul.appendChild(this.createTodoItem(todo, { onUpdate: this.onUpdate, onDelete: this.onDelete })))
     return ul
   }
 
@@ -150,13 +155,28 @@ class TodoModel {
      body: JSON.stringify(todo)})
       .then(res => res.json())
   }
+
+  static updateTodo(todo) {
+    return fetch(`${API_ROOT}/todos`, {
+      method: 'PUT',
+      headers: { 
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo)})
+      .then(res => res.json())
+  }
+
+  static deleteTodo(id) {
+    return fetch(`${API_ROOT}/todos/${id}`, { method: 'DELETE' })
+      .then(res => res.json())
+  }
 }
 
 class TodoController {
   constructor(root) {
-    this.view = new TodoView(root)
     this.todos = []
     this.initialMount = true
+    this.view = new TodoView(root, this.updateTodo, this.deleteTodo)
   }
 
    addTodo = async ({ name }) => {
@@ -166,6 +186,18 @@ class TodoController {
     
     this.todos.push(todo)
     this.render()
+  }
+
+  updateTodo = (value) => {
+    console.log('update', value)
+  }
+
+  deleteTodo = async (value) => {
+    console.log('delete', value)
+    await TodoModel.deleteTodo(value)
+    const i = this.todos.findIndex((todo) => todo.id === value)
+    this.todos.splice(i, 1)
+    this.view.render(this.todos)
   }
 
   async render() {
